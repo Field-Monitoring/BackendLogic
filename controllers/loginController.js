@@ -31,8 +31,7 @@ passport.use('local-signup', new LocalStrategy({
     },
     function(req, email, password, done) {
 
-        // asynchronous
-        console.log("achooo");
+        
         emailid = email;
         console.log(email);
         // User.findOne wont fire unless data is sent back
@@ -49,7 +48,7 @@ passport.use('local-signup', new LocalStrategy({
             if (user) {
                 return done(null, false);
             } else {
-            	console.log("harish kumar is a good boy");
+            	
                 // if there is no user with that email
                 // create the user
                 var newUser            = new User();
@@ -79,30 +78,30 @@ passport.use('local-signup', new LocalStrategy({
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, email, password, done) { // callback with email and password from our form
-    	console.log("came in bro");
+    	
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
         User.findOne({ 'email' :  email }, function(err, user) {
             // if there are any errors, return the error before anything else
             if (err){
-            	console.log("what is this ");
+            	
                 return done(err);
             }
 
             // if no user is found, return the message
             if (!user){
-            	console.log("this is it");
+            	
                 return done(null, false); // req.flash is the way to set flashdata using connect-flash
             }
 
             // if the user is found but the password is wrong
             if (!user.validPassword(password)){
-            	console.log("ponga da");
+            	
                 return done(null, false); // create the loginMessage and save it to session as flashdata
             }
 
             // all is well, return successful user
-            console.log("varudhe");
+            
             return done(null, user);
         });
     }));
